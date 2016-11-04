@@ -34,14 +34,7 @@ var chkUsed = letters.indexOf(guessCap);
 if (chkUsed === -1) {              
 	//check if correct guess
 	if (ansCap.includes(guessCap) === true) {
-			//check for game won
-			if (ansCap === ansUs) {
-				//winner graphic
-				document.getElementById("youwin1").innerHTML = "CONGRATS";
-				document.getElementById("youwin2").innerHTML = "You Win!";
-				document.getElementById("youwin3").innerHTML = "The answer is:";
-				document.getElementById("youwin4").innerHTML = ansCap;
-			}
+			
 		//replace in current word array
 		//search answer for guessed letter
 		var pos = [];
@@ -54,8 +47,8 @@ if (chkUsed === -1) {
 		}
 		var ansUs = ansUsArray.join("");
 		document.getElementById("word").innerHTML= ansUs;
-		console.log("answer is " + ansCap);
-		console.log("guess is " + ansUs);
+		console.log("guess check answer is " + ansCap);
+		console.log("guess check guess is " + ansUs);
 	}
 
 	//add to letters used array
@@ -67,20 +60,32 @@ if (chkUsed === -1) {
 	document.getElementById("guesses").innerHTML = remGuess;
 
 //already guessed alert
-} else { alert ("You guessed this letter already.  Please try again.");	 
-
+} else { 
+	alert ("You guessed this letter already.  Please try again.");	 
 }
+
+//check for game won
+	if (ansCap === ansUs) {
+		//winner graphic
+		console.log("win check answer is " + ansCap);
+		console.log("win checkguess is " + ansUs);
+		document.getElementById("youwin1").innerHTML = "CONGRATS! You Win!";
+		document.getElementById("youwin2").innerHTML = "The answer is:";
+		document.getElementById("youwin3").innerHTML = ansCap;
+	}
 
 }	
 
 
-	
-//need stop when out of guesses
+//need stop & reset when win	
+//need stop & reset when out of guesses
+// DOM form reset?
 
-//when all letters are matched:
-//	alert you win
-//  play hail to the cheif
-//	start over
+//add music 
+
+//add stop when out of guesses
+
+
 
 
 

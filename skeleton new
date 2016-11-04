@@ -7,6 +7,7 @@ Xifreplace in display array
 
 Xif(3) display array === answer array
 X	display You win, Answer
+X  dont nest this put it after if 1
 ?	play song
 ?	reset (how do I do this?)
 
