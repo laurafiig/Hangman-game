@@ -1,0 +1,14 @@
+create html with locations for blank letters, turns left, letters guessed, games won
+
+create pretty CSS for theme
+
+variables needed:
+array of words to be guessed
+user input
+letters guessed
+turns remaining
+score
+
+select word at random, convert letters to underscores, write to html
+
+ask for user input, check word for letter, write to html - in word or to letters guessed
