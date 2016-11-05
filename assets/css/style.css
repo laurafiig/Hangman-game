@@ -12,7 +12,9 @@ h1 {
 }
 
 /*sizes the picture*/
-.pic1 {width: 100%}
+.pic1 {
+	width: 100%
+}
 
 /*formats the game area*/
 .active {
@@ -23,8 +25,12 @@ h1 {
 	}
 
 /*centers game text*/
-p, h2, h3 {text-align: center}
+p, h2, h3 {
+	text-align: center
+}
 
-/*spaces guess area for readability*/
-#word {letter-spacing: 10px;}
+/*spaces underscores in guess area for readability*/
+#word {
+	letter-spacing: 10px;
+}
 

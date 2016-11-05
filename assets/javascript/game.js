@@ -1,97 +1,113 @@
 
 //Array of correct answers
 var answers=["Washington","Adams","Jefferson","Madison","Lincoln","Roosevelt","Kennedy","Reagan","Clinton","Obama"]
+
 // starter values for variable display
 var numWins = 0
-var remGuess = 15
+var remGuess = 10
 var letters =[]
-//select random answer, convert to proper length array of spaces, populate word field
+
+// select random answer
 var answer = answers[Math.floor(Math.random()*answers.length)];
-//convert to underscores
+
+// convert to underscore word
 var ansUs = answer.replace(/./gi, "_");
-//split underscores into array
+
+// split underscores into array
 var ansUsArray = ansUs.split("");
-// combine array into string (don't need here)
-//var ansDisplay = ansUsArray.join("")
+
 // convert answer to uppercase
 var ansCap = answer.toUpperCase();
-//split answer into array, not needed for now
-//var ansArray = ansCap.split("");
+
+// link to sound file
+var sound1 = new Audio("hail_to_the_chief.mp3");
+
 // populate fields in html with starting values
 document.getElementById("word").innerHTML= ansUs;
 document.getElementById("guesses").innerHTML = remGuess;
 document.getElementById("wins").innerHTML = numWins;
-//actions when key is clicked:
 
-//	check array for correct letter
-//  replace if correct
-
-//make key input capital letter
+// capture key input, make capital letter
 document.onkeyup = function(guess) {
-	var guessCap = String.fromCharCode(guess.keyCode).toUpperCase();
-//check if guessed previously
-var chkUsed = letters.indexOf(guessCap);
-if (chkUsed === -1) {              
-	//check if correct guess
-	if (ansCap.includes(guessCap) === true) {
+	guessCap = String.fromCharCode(guess.keyCode).toUpperCase();
+	
+	// check if letter guessed previously
+	chkUsed = letters.indexOf(guessCap);
+	if (chkUsed === -1) {              
+	
+		// add to letters used array
+		letters.push(guessCap);
+		document.getElementById("letters").innerHTML = letters;
+	
+		// check if correct guess
+		if (ansCap.includes(guessCap) === true) {
+	
+			// search answer for location of guessed letter
+			pos = [];
+			for(var i=0; i<ansCap.length;i++) {
+				if (ansCap[i] === guessCap) pos.push(i);
+			}
+	
+			// replace underscore in word and re-populate html
+			for(i=0; i<pos.length; i++) {
+				ansUsArray[pos[i]] = guessCap
+			}
+			ansUs = ansUsArray.join("");
+			document.getElementById("word").innerHTML= ansUs;	
+	
+			// check for game won
+			if (ansCap === ansUs) {
 			
-		//replace in current word array
-		//search answer for guessed letter
-		var pos = [];
-		for(var i=0; i<ansCap.length;i++) {
-    		if (ansCap[i] === guessCap) pos.push(i);
+				//increase number of wins, update on screen
+				numWins++;
+				document.getElementById("wins").innerHTML = numWins;
+			
+				//winner graphics and sound
+				document.getElementById("youwin1").innerHTML = "CONGRATS! You Win!";
+				document.getElementById("youwin2").innerHTML = "The answer is:";
+				document.getElementById("youwin3").innerHTML = ansCap;
+				sound1.play();
+				
+				//reset game board on win
+				remGuess = 10
+				document.getElementById("guesses").innerHTML = remGuess;
+				answer = answers[Math.floor(Math.random()*answers.length)];
+				ansUs = answer.replace(/./gi, "_");
+				ansUsArray = ansUs.split("");
+				document.getElementById("word").innerHTML= ansUs;
+				letters =[]
+				document.getElementById("letters").innerHTML = letters;
+				ansCap = answer.toUpperCase();
+				} 
+			
+		} else {
+		//subtract from guesses remaining total and update html
+		remGuess--;
+		document.getElementById("guesses").innerHTML = remGuess;
+
+		//check for out of guesses
+		if (remGuess < 1) {
+			
+			//try again graphics
+			document.getElementById("youwin1").innerHTML = "Out of Guesses!";
+			document.getElementById("youwin2").innerHTML = "Please try again. The correct answer was:";
+			document.getElementById("youwin3").innerHTML = ansCap;
+			
+			//reset game board on loss
+			remGuess = 10
+			document.getElementById("guesses").innerHTML = remGuess;
+			answer = answers[Math.floor(Math.random()*answers.length)];
+			ansUs = answer.replace(/./gi, "_");
+			ansUsArray = ansUs.split("");
+			document.getElementById("word").innerHTML= ansUs;
+			letters =[]
+			document.getElementById("letters").innerHTML = letters;
+			ansCap = answer.toUpperCase();	
+		}	
+
 		}
-		//replace underscored in word and re-pop
-		for(i=0; i<pos.length; i++) {
-			ansUsArray[pos[i]] = guessCap
-		}
-		var ansUs = ansUsArray.join("");
-		document.getElementById("word").innerHTML= ansUs;
-		console.log("guess check answer is " + ansCap);
-		console.log("guess check guess is " + ansUs);
+
 	}
 
-	//add to letters used array
-	letters.push(guessCap);
-	document.getElementById("letters").innerHTML = letters;
-
-	//subtract from guesses remaining total
-	remGuess--;
-	document.getElementById("guesses").innerHTML = remGuess;
-
-//already guessed alert
-} else { 
-	alert ("You guessed this letter already.  Please try again.");	 
 }
-
-//check for game won
-	if (ansCap === ansUs) {
-		//winner graphic
-		console.log("win check answer is " + ansCap);
-		console.log("win checkguess is " + ansUs);
-		document.getElementById("youwin1").innerHTML = "CONGRATS! You Win!";
-		document.getElementById("youwin2").innerHTML = "The answer is:";
-		document.getElementById("youwin3").innerHTML = ansCap;
-	}
-
-}	
-
-
-//need stop & reset when win	
-//need stop & reset when out of guesses
-// DOM form reset?
-
-//add music 
-
-//add stop when out of guesses
-
-
-
-
-
-
-
-
-
-
-
+	
