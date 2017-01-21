@@ -1,12 +1,14 @@
 
-//Array of correct answers
-var answers=["Washington","Adams","Jefferson","Madison","Lincoln","Roosevelt","Kennedy","Reagan","Clinton","Obama"]
+// Variables
+
+// Array of correct answers
+var answers=["Washington","Adams","Jefferson","Madison","Lincoln","Roosevelt","Kennedy","Reagan","Clinton","Obama"];
 
 // starter values for variable display
-var numWins = 0
-var numLoss = 0
-var remGuess = 10
-var letters =[]
+var numWins = 0;
+var numLoss = 0;
+var remGuess = 10;
+var letters =[];
 
 // select random answer
 var answer = answers[Math.floor(Math.random()*answers.length)];
@@ -26,17 +28,60 @@ document.getElementById("guesses").innerHTML = remGuess;
 document.getElementById("wins").innerHTML = numWins;
 document.getElementById("losses").innerHTML = numLoss;
 
-//reset game board
-function clearBoard() {
-	remGuess = 10
-	document.getElementById("guesses").innerHTML = remGuess;
-	answer = answers[Math.floor(Math.random()*answers.length)];
-	ansUs = answer.replace(/./gi, "_");
-	ansUsArray = ansUs.split("");
-	document.getElementById("word").innerHTML= ansUs;
-	letters =[]
+// Functions
+
+// capture input and check for valid guess
+// (is a letter, was not already used)
+function letterCheck() {
+	// check if guess is a letter
+	var lett = /[A-Z]/g
+	var chkLet = guessCap.match(lett);
+	if (chkLet != null) {
+	// check if letter guessed previously
+	chkUsed = letters.indexOf(guessCap);
+		if (chkUsed === -1) {              
+			newGuess()
+		}	// end if already guessed
+	}	// end check if letter
+};
+
+// is guess correct or incorrect
+function newGuess() {
+	// add to letters used array
+	letters.push(guessCap);
 	document.getElementById("letters").innerHTML = letters;
-	ansCap = answer.toUpperCase();
+	// check if correct guess
+	if (ansCap.includes(guessCap) === true) {
+	//update board for correct guess
+	goodGuess()
+	} else {
+	//subtract from guesses remaining total and update html
+	remGuess--;
+	document.getElementById("guesses").innerHTML = remGuess;
+	//check for out of guesses
+		if (remGuess < 1) {
+			onLoss()
+		}	
+	}	// end if else letter used
+};
+
+//update board for correct guess
+function goodGuess() {
+	// search answer for location of guessed letter
+	pos = [];
+	for(var i=0; i<ansCap.length;i++) {
+		if (ansCap[i] === guessCap) pos.push(i);
+	}
+	// replace underscore in word and re-populate html
+	for(i=0; i<pos.length; i++) {
+		ansUsArray[pos[i]] = guessCap
+	}
+	ansUs = ansUsArray.join("");
+	document.getElementById("word").innerHTML= ansUs;
+	// check for game won
+	if (ansCap === ansUs) {
+		onWin()
+	}	
 };
 
 //when you are out of guesses
@@ -66,55 +111,28 @@ function onWin() {
 	clearBoard()
 };
 
-//update board for correct guess
-function goodGuess() {
-	// search answer for location of guessed letter
-	pos = [];
-	for(var i=0; i<ansCap.length;i++) {
-		if (ansCap[i] === guessCap) pos.push(i);
-	}
-	// replace underscore in word and re-populate html
-	for(i=0; i<pos.length; i++) {
-		ansUsArray[pos[i]] = guessCap
-	}
-	ansUs = ansUsArray.join("");
+//reset game board
+function clearBoard() {
+	remGuess = 10
+	document.getElementById("guesses").innerHTML = remGuess;
+	answer = answers[Math.floor(Math.random()*answers.length)];
+	ansUs = answer.replace(/./gi, "_");
+	ansUsArray = ansUs.split("");
 	document.getElementById("word").innerHTML= ansUs;
-	// check for game won
-	if (ansCap === ansUs) {
-		onWin()
-	}	
-}
+	letters =[]
+	document.getElementById("letters").innerHTML = letters;
+	ansCap = answer.toUpperCase();
+};
+
 
 // *****************************
-
 // PRESS ANY KEY TO START GAME
-// capture key input, make capital letter
+// *****************************
+
+// when a key is released
 document.onkeyup = function(guess) {
+	//capture input, make uppercase and check if it is a letter
 	guessCap = String.fromCharCode(guess.keyCode).toUpperCase();
-	// check if guess is a letter
-	var lett = /[A-Z]/g
-	var chkLet = guessCap.match(lett);
-	if (chkLet != null) {
-	// check if letter guessed previously
-	chkUsed = letters.indexOf(guessCap);
-		if (chkUsed === -1) {              
-		// add to letters used array
-		letters.push(guessCap);
-		document.getElementById("letters").innerHTML = letters;
-		// check if correct guess
-			if (ansCap.includes(guessCap) === true) {
-			//update board for correct guess
-			goodGuess()
-			} else {
-			//subtract from guesses remaining total and update html
-			remGuess--;
-			document.getElementById("guesses").innerHTML = remGuess;
-			//check for out of guesses
-				if (remGuess < 1) {
-					onLoss()
-				}	
-			}	// end if else letter used
-		}	// end if already guessed
-	}	// end check if letter
+	letterCheck()
 }	// end keyup function
 	
