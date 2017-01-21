@@ -6,7 +6,7 @@ body {
 /*formats the title block*/
 h1 {
 	text-align: center;
-	color: white;
+	color: #fff;
 	background-color: #010066; 
 	padding: 25px 0;
 }
