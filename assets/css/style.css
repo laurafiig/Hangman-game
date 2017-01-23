@@ -1,6 +1,6 @@
 /*sets background for page*/
 body {
-	background-image: url("../images/download.png");
+	background-image: url("/images/download.png");
 }
 /*formats the title block*/
 h1 {
