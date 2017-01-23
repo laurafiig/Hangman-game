@@ -15,7 +15,7 @@ var ansUsArray = ansUs.split("");
 // convert answer to uppercase
 var ansCap = answer.toUpperCase();
 // link to sound file
-var sound1 = new Audio("hail_to_the_chief.mp3");
+var sound1 = new Audio("../hail_to_the_chief.mp3");
 // populate fields in html with starting values
 document.getElementById("word").innerHTML= ansUs;
 document.getElementById("guesses").innerHTML = remGuess;
