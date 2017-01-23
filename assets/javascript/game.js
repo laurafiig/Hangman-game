@@ -1,15 +1,11 @@
-
 // Variables
-
 // Array of correct answers
 var answers=["Washington","Adams","Jefferson","Madison","Lincoln","Roosevelt","Kennedy","Reagan","Clinton","Obama"];
-
 // starter values for variable display
 var numWins = 0;
 var numLoss = 0;
 var remGuess = 10;
 var letters =[];
-
 // select random answer
 var answer = answers[Math.floor(Math.random()*answers.length)];
 // convert to underscore word
@@ -18,18 +14,14 @@ var ansUs = answer.replace(/./gi, "_");
 var ansUsArray = ansUs.split("");
 // convert answer to uppercase
 var ansCap = answer.toUpperCase();
-
 // link to sound file
 var sound1 = new Audio("hail_to_the_chief.mp3");
-
 // populate fields in html with starting values
 document.getElementById("word").innerHTML= ansUs;
 document.getElementById("guesses").innerHTML = remGuess;
 document.getElementById("wins").innerHTML = numWins;
 document.getElementById("losses").innerHTML = numLoss;
-
 // Functions
-
 // capture input and check for valid guess
 // (is a letter, was not already used)
 function letterCheck() {
@@ -44,7 +36,6 @@ function letterCheck() {
 		}	// end if already guessed
 	}	// end check if letter
 };
-
 // is guess correct or incorrect
 function newGuess() {
 	// add to letters used array
@@ -64,7 +55,6 @@ function newGuess() {
 		}	
 	}	// end if else letter used
 };
-
 //update board for correct guess
 function goodGuess() {
 	// search answer for location of guessed letter
@@ -83,7 +73,6 @@ function goodGuess() {
 		onWin()
 	}	
 };
-
 //when you are out of guesses
 function onLoss() {
 	//increase number of losses, update on screen
@@ -96,7 +85,6 @@ function onLoss() {
 	//reset game board on loss
 	clearBoard()
 };
-
 //when the word is completed
 function onWin() {
 //increase number of wins, update on screen
@@ -110,7 +98,6 @@ function onWin() {
 	//reset game board on win
 	clearBoard()
 };
-
 //reset game board
 function clearBoard() {
 	remGuess = 10
@@ -123,16 +110,12 @@ function clearBoard() {
 	document.getElementById("letters").innerHTML = letters;
 	ansCap = answer.toUpperCase();
 };
-
-
 // *****************************
 // PRESS ANY KEY TO START GAME
 // *****************************
-
 // when a key is released
 document.onkeyup = function(guess) {
 	//capture input, make uppercase and check if it is a letter
 	guessCap = String.fromCharCode(guess.keyCode).toUpperCase();
 	letterCheck()
-}	// end keyup function
-	
+}	// end keyup function	
